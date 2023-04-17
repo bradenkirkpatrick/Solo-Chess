@@ -21,21 +21,27 @@ class Piece():
         self.x = x
         self.y = y
         self.piece_type = piece_type
+
     def take(self, other):
         self.x = other.x
         self.y = other.y
+
     def can_take(self, other):
         if other.piece_type == KING:
             return False
         if moves[self.piece_type](self.x, self.y, other.x, other.y):
             return True
         return False
+    
     def is_king(self) -> bool:
         return self.piece_type == KING
+    
     def clone(self):
         return Piece(self.x, self.y, self.piece_type)
+    
     def __eq__(self, __o: object) -> bool:
         return self.x == __o.x and self.y == __o.y and self.piece_type == __o.piece_type
+    
     def __ne__(self, __o: object) -> bool:
         if self.x != __o.x:
             return True
@@ -44,5 +50,9 @@ class Piece():
         if self.piece_type != __o.piece_type:
             return True
         return False
+    
     def __str__(self) -> str:
         return f"({self.x}, {self.y}, {self.piece_type})"
+    
+    def __format__(self):
+        return (self.x, self.y, self.piece_type)
